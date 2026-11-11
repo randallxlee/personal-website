@@ -5,7 +5,7 @@ export const PERSONAL_INFO = {
   title: "MLOps & Data Engineer",
   profileImage: "/images/profile-photo.jpeg",
   bio: [
-    "Hello! 👋 I’m an MLOps Engineer at ICBC (Insurance Corporation of British Columbia), where I bring machine learning and AI solutions to life. My work spans data pipelines, model and AI development, and the tools that help bring AI systems into production reliably. I enjoy working across the data and ML lifecycle to turn promising ideas into practical solutions.",
+    "Hello! 👋 I’m a machine learning ops engineer, where I bring machine learning and AI solutions to life. My work spans data pipelines, model and AI development, and the tools that help bring AI systems into production reliably. I enjoy working across the data and ML lifecycle to turn promising ideas into practical solutions.",
     "Outside of work, I’m happiest outdoors. I enjoy camping, training for long-distance runs, and exploring new routes on my road bike.",
   ],
   location: "Vancouver, BC, Canada",

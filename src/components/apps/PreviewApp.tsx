@@ -1,32 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Download, Printer, ZoomIn, ZoomOut, FileText } from 'lucide-react';
 
 export const PreviewApp = () => {
   const [zoomLevel, setZoomLevel] = useState(100);
-  const [isMobile, setIsMobile] = useState(false);
   const pdfUrl = '/resume.pdf';
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   const handlePrint = () => {
-    const printWindow = window.open(pdfUrl, '_blank', 'noopener,noreferrer');
-    if (printWindow) {
-      printWindow.focus();
-      setTimeout(() => {
-        try {
-          printWindow.print();
-        } catch {
-          // No-op: browser may block the print call for some PDF viewers.
-        }
-      }, 250);
-      return;
-    }
-
     window.print();
   };
 
@@ -50,25 +29,23 @@ export const PreviewApp = () => {
 
         {/* Zoom & Action Controls */}
         <div className="flex items-center space-x-2">
-          {!isMobile && (
-            <div className="flex items-center space-x-1 bg-white/5 rounded-lg p-0.5 border border-white/10">
-              <button
-                onClick={() => setZoomLevel((z) => Math.max(75, z - 10))}
-                className="p-1 rounded text-zinc-400 hover:text-white transition-colors"
-                title="Zoom Out"
-              >
-                <ZoomOut className="w-3.5 h-3.5" />
-              </button>
-              <span className="text-[11px] font-mono text-zinc-300 px-1">{zoomLevel}%</span>
-              <button
-                onClick={() => setZoomLevel((z) => Math.min(125, z + 10))}
-                className="p-1 rounded text-zinc-400 hover:text-white transition-colors"
-                title="Zoom In"
-              >
-                <ZoomIn className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          )}
+          <div className="flex items-center space-x-1 bg-white/5 rounded-lg p-0.5 border border-white/10">
+            <button
+              onClick={() => setZoomLevel((z) => Math.max(75, z - 10))}
+              className="p-1 rounded text-zinc-400 hover:text-white transition-colors"
+              title="Zoom Out"
+            >
+              <ZoomOut className="w-3.5 h-3.5" />
+            </button>
+            <span className="text-[11px] font-mono text-zinc-300 px-1">{zoomLevel}%</span>
+            <button
+              onClick={() => setZoomLevel((z) => Math.min(125, z + 10))}
+              className="p-1 rounded text-zinc-400 hover:text-white transition-colors"
+              title="Zoom In"
+            >
+              <ZoomIn className="w-3.5 h-3.5" />
+            </button>
+          </div>
 
           <button
             onClick={handlePrint}
@@ -90,18 +67,13 @@ export const PreviewApp = () => {
 
       {/* Document Viewport */}
       <div className="flex-1 overflow-hidden p-4 md:p-8 bg-zinc-950/90">
-        <div className="relative h-full w-full flex justify-center items-start">
+        <div className="h-full w-full flex justify-center items-start">
           <iframe
             key={pdfUrl}
             src={pdfUrl}
             title="Resume PDF"
-            className="rounded-lg border border-white/10 bg-white shadow-2xl"
-            style={{
-              width: isMobile ? '100%' : `${zoomLevel}%`,
-              maxWidth: '100%',
-              height: '100%',
-              minHeight: 'calc(100vh - 200px)',
-            }}
+            className="w-full h-full max-w-4xl rounded-lg border border-white/10 bg-white shadow-2xl"
+            style={{ transform: `scale(${zoomLevel / 100})`, transformOrigin: 'top center' }}
           />
         </div>
       </div>
