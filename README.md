@@ -95,7 +95,19 @@ This site is static and can be deployed on:
 - Vercel
 - any static hosting service
 
-For GitHub Pages, build the site and deploy the contents of the `dist/` folder.
+### GitHub Pages
+
+This project is set up for GitHub Pages deployment via GitHub Actions.
+
+1. Push the repo to GitHub.
+2. In GitHub, open the repo and go to Settings → Pages.
+3. Set Source to GitHub Actions.
+4. If you are using a custom domain, enter the domain in the Pages settings and configure the DNS records with your domain provider.
+5. The workflow will build and deploy the site automatically.
+
+If you want to deploy under a project page path such as `https://username.github.io/personal-website/`, update the `base` value in `vite.config.ts` to `'/personal-website/'`.
+
+The default here is configured for a custom domain root deployment.
 
 ## Notes
 

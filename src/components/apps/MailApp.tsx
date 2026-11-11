@@ -84,7 +84,7 @@ export const MailApp = () => {
               <input
                 id="senderName"
                 type="text"
-                placeholder="Jane Doe"
+                placeholder="John Smith"
                 value={senderName}
                 onChange={(e) => setSenderName(e.target.value)}
                 className="flex-1 bg-transparent text-white placeholder-zinc-600 focus:outline-hidden"
@@ -97,7 +97,7 @@ export const MailApp = () => {
                 id="senderEmail"
                 type="email"
                 required
-                placeholder="jane@example.com"
+                placeholder="john@example.com"
                 value={senderEmail}
                 onChange={(e) => setSenderEmail(e.target.value)}
                 className="flex-1 bg-transparent text-white placeholder-zinc-600 focus:outline-hidden"
