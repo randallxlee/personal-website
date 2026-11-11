@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  input, textarea, [contenteditable="true"] {
+    user-select: text;
+  }
+}
