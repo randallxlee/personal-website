@@ -42,6 +42,7 @@ export const MenuBar = () => {
         hour: 'numeric',
         minute: '2-digit',
         hour12: true,
+        timeZone: 'America/Los_Angeles',
       };
       setTimeString(now.toLocaleDateString('en-US', options).replace(/,/g, ''));
     };

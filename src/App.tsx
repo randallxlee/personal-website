@@ -31,12 +31,37 @@ export default function App() {
     typeof window !== 'undefined' ? window.innerWidth : 1200
   );
   const [mobileTab, setMobileTab] = useState<MobileTab>('notes');
+  const [mobileTime, setMobileTime] = useState(() =>
+    new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Los_Angeles',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: false,
+    }).format(new Date())
+  );
 
   useEffect(() => {
     const handleResize = () => setViewportWidth(window.innerWidth);
+    const updateTime = () => {
+      setMobileTime(
+        new Intl.DateTimeFormat('en-US', {
+          timeZone: 'America/Los_Angeles',
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: false,
+        }).format(new Date())
+      );
+    };
+
     handleResize();
+    updateTime();
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const timeInterval = window.setInterval(updateTime, 30000);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.clearInterval(timeInterval);
+    };
   }, []);
 
   const isCompactViewport = viewportWidth < 1100;
@@ -58,7 +83,7 @@ export default function App() {
 
           <div className="flex h-full flex-col pt-10">
             <div className="flex items-center justify-between border-b border-white/10 bg-zinc-950/70 px-4 py-2 text-[10px] text-zinc-300">
-              <span>9:41</span>
+              <span>{mobileTime}</span>
               <div className="flex items-center gap-1.5">
                 <span className="h-2.5 w-2.5 rounded-full bg-white/80" />
                 <span className="h-2.5 w-2.5 rounded-full bg-white/60" />
